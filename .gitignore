@@ -1,0 +1,50 @@
+# Compiled binary and executable files
+/bin/
+/obj/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+.nuget/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Auto-generated files
+*.generated.cs
+*.generated.sln
+
+# Build results
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.log
+*.lib
+*.exp
+*.idb
+*.tlog
+*.lastbuildstate
+*.ds_store
+
+# Visual Studio Code files
+.vscode/
+
+# Rider files
+.idea/
+
+# Backup & temporary files
+*.bak
+*.swp
+*.tmp
+*.temp
+*.log
+
+# Other
+project.lock.json
+project.fragment.lock.json
+artifacts/
