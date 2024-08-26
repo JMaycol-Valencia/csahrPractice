@@ -3,7 +3,7 @@ namespace CoreEscuela.Entidades
     class Escuela
     {
         //Atributos
-        string nombre = "anonimo";
+        private string nombre = String.Empty;
         //Propiedad Ejemplo 1
         public string Nombre
         {
@@ -32,10 +32,11 @@ namespace CoreEscuela.Entidades
         //Constructor Ejemplo 2
         public Escuela(string nombre, int año) => (Nombre, AñoCreacion) = (nombre, año);
 
-        public Escuela(string nobre, int año, TiposEscuela tipo, string departamento = "")
+        public Escuela(string nombre, int año, TiposEscuela tipo, string departamento = "")
         {
             //Asignacion de tipos de valores no opcionales
-            (Nombre, AñoCreacion, TipoEscuela) = (nobre, año, tipo);
+            (Nombre, AñoCreacion, TipoEscuela) = (nombre, año, tipo);
+            //ASIGNACION DE VALORES OPCIONALES
             Departamento = departamento;
         }
 
