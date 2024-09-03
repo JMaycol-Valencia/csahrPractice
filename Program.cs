@@ -1,5 +1,7 @@
 ﻿using System;
 using CoreEscuela.Entidades;
+using static System.Console;
+
 
 namespace CoreEscuela
 {
@@ -8,28 +10,47 @@ namespace CoreEscuela
         static void Main(string[] args)
         {
             System.Console.WriteLine("Hello World!");
+
             //CREACION DE ESCUELAS
             var escuela = new Escuela("Escuela feliz", 1997);
             var escuela2 = new Escuela("Escuela triste", 1998, TiposEscuela.Secundaria);
 
-            //ARREGLO DE CURSOS
-            var arregloCurso = new Curso[3];
+            //ARREGLO DE CURSOS SIMPLIFIACADO
+            var arregloCurso = new Curso[3]{
+                new Curso("105", TipoJornada.Noche),
+                new Curso("106", TipoJornada.Mañana),
+                new Curso("107", TipoJornada.Tarde)
+            };
+            
+            escuela2.Cursos = new Curso[]{
+                new Curso("201", TipoJornada.Mañana),
+                new Curso("202", TipoJornada.Tarde),
+                new Curso("203", TipoJornada.Noche)
+            };
 
+            //ARREGLO DE CURSOS SIMPLIFICADO 2
+            // Curso[] arregloCurso2 = {
+            //     new Curso("105", TipoJornada.Noche),
+            //     new Curso("106", TipoJornada.Mañana),
+            //     new Curso("107", TipoJornada.Tarde)
+            // };
+            
+            //ARREGLO DE CURSOS CON ASIGNACION DE OBJETOS
             arregloCurso[0] = new Curso("105", TipoJornada.Noche);
             var curso6 = new Curso("106", TipoJornada.Mañana);
             arregloCurso[1] = curso6;
             arregloCurso[2] = new Curso("107", TipoJornada.Tarde);
 
-            //CREACION DE CURSOS
+            //CREACION DE CURSOS INDIVIDUALES SOBRE VARIABLES
             var  curso1 = new Curso("101", TipoJornada.Mañana);
-
             var curso2 = new Curso("102", TipoJornada.Tarde);
-
             var curso3 = new Curso("103", TipoJornada.Noche);
-            
+
+            //ASIGNACION DE VALORES A LA ESCUELA
             escuela.TipoEscuela = TiposEscuela.Primaria;
             escuela.Departamento = "Cochabamba";
 
+            //LLAMADAS POR CONSOLA
             System.Console.WriteLine("ESCUELAS");
             System.Console.WriteLine("==============");
             Console.WriteLine(escuela);
@@ -52,6 +73,59 @@ namespace CoreEscuela
             System.Console.WriteLine("FOREACH");
             System.Console.WriteLine("==============");
             ImprimirCursosForEach(arregloCurso);
+
+            ImprimirCursosEscuelas(escuela2);
+
+            bool rta = 10 == 10;//true
+            int cantidad = 10;
+
+            if (rta == false)
+            {
+                WriteLine("Se cumplio la condición #1");
+            }
+            else if (cantidad > 15)
+            {
+                WriteLine("Se cumplio la condición #2");
+            }
+            else
+            {
+                WriteLine("NO Se cumplio la condición");
+            }
+
+            if(cantidad > 5 && rta == false)
+            {
+                WriteLine("Se cumplio la condición #3");
+            }
+
+            
+            if(cantidad > 5 && rta )
+            {
+                WriteLine("Se cumplio la condición #4");
+            }
+
+            cantidad = 10;
+            if(
+                (cantidad > 15 || !rta) 
+                && (cantidad % 5 == 0 )
+            )
+            {
+                WriteLine("Se cumplio la condición #5");
+            }
+
+
+        }
+
+        private static void ImprimirCursosEscuelas(Escuela escuela2)
+        {
+            System.Console.WriteLine("================");
+            System.Console.WriteLine("CURSOS DE ESCUELA");
+            System.Console.WriteLine("================");
+
+            if(escuela2?.Cursos != null){
+                foreach(var curso in escuela2.Cursos){
+                    WriteLine($"Name: {curso.Name}, ID: {curso.UniqueId}");
+                }
+            }
         }
 
         private static void ImprimirCursos(Curso[] arregloCurso){
