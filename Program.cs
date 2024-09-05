@@ -9,7 +9,7 @@ namespace CoreEscuela
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
+            WriteLine("Hello World!");
 
             //CREACION DE ESCUELAS
             var escuela = new Escuela("Escuela feliz", 1997);
@@ -30,13 +30,7 @@ namespace CoreEscuela
                 new Curso("203", TipoJornada.Noche)
             };
 
-            //asignacion de la lista de cursos a la escuela
-            escuela2.Cursos = listaCurso;
-            //AGREGACION DE PROPIEDAD ANTES DESPUES DE QUE SE HAYA CREADO EL OBJETO
-            escuela2.Cursos.Add(new Curso("204", TipoJornada.Noche));
-            escuela2.Cursos.Add(new Curso("205", TipoJornada.Tarde));
-            escuela2.Cursos.Add(new Curso("206", TipoJornada.Tarde));
-
+            //creacion de una lista extra
             var otraLista = new List<Curso>(){
                 new Curso("207", TipoJornada.Noche),
                 new("208", TipoJornada.Mañana),
@@ -44,12 +38,21 @@ namespace CoreEscuela
 
             };
 
+            //ASIGNACION DE LA LISTA A LA ESCUELA
+            escuela2.Cursos = listaCurso;
+
+            //AGREGACION DE PROPIEDAD ANTES DESPUES DE QUE SE HAYA CREADO EL OBJETO
+            escuela2.Cursos.Add(new Curso("204", TipoJornada.Noche));
+            escuela2.Cursos.Add(new Curso("205", TipoJornada.Tarde));
+            escuela2.Cursos.Add(new Curso("206", TipoJornada.Tarde));
+
+            //CURSO TEMPORAL PARA ELIMINAR
             Curso cursoTemp = new Curso("666", TipoJornada.Mañana);
             escuela2.Cursos.Add(cursoTemp);
-            //metodo para agregar una lista seguida de otra
+
+            //AGREGANDO LISTA EXTRA
             escuela2.Cursos.AddRange(otraLista);
         
-            
             // escuela2.Cursos = new Curso[]{
             //     new Curso("201", TipoJornada.Mañana),
             //     new Curso("202", TipoJornada.Tarde),
@@ -79,27 +82,18 @@ namespace CoreEscuela
             escuela.Departamento = "Cochabamba";
 
             //LLAMADAS POR CONSOLA
-            System.Console.WriteLine("ESCUELAS");
-            System.Console.WriteLine("==============");
-            Console.WriteLine(escuela);
-            Console.WriteLine(escuela2);
-            System.Console.WriteLine("CURSOS");
-            System.Console.WriteLine("==============");
-            System.Console.WriteLine(curso1.Name + " " + curso1.UniqueId);
-            System.Console.WriteLine($"{curso2.Name} {curso2.UniqueId}");
-            System.Console.WriteLine(curso3.Name + " " +  curso3.UniqueId);
-            System.Console.WriteLine("RRECORRIDO DE ARREGLO");
-            System.Console.WriteLine("WHILE");
-            System.Console.WriteLine("==============");
-            //ImprimirCursos(arregloCurso);
-            System.Console.WriteLine("DO WHILE");
-            System.Console.WriteLine("==============");
-            //ImprimirCursosDoWhile(arregloCurso);
-            System.Console.WriteLine("FOR");
-            System.Console.WriteLine("==============");
-            //ImprimirCursosFor(arregloCurso);
-            System.Console.WriteLine("FOREACH");
-            System.Console.WriteLine("==============");
+            WriteLine("ESCUELAS");
+            WriteLine("==============");
+            WriteLine(escuela);
+            WriteLine(escuela2);
+            WriteLine("CURSOS");
+            WriteLine("==============");
+            WriteLine(curso1.Name + " " + curso1.UniqueId);
+            WriteLine($"{curso2.Name} {curso2.UniqueId}");
+            WriteLine(curso3.Name + " " +  curso3.UniqueId);
+            WriteLine("RRECORRIDO DE ARREGLO");
+            WriteLine("FOREACH");
+            WriteLine("==============");
             ImprimirCursosForEach(arregloCurso);
 
             //eliminar
@@ -112,66 +106,35 @@ namespace CoreEscuela
             //imprimir cursos de escuela
             ImprimirCursosEscuelas(escuela2);
 
-            //eliminar curso 301 segund el PREDICATE asignado            
-            Predicate<Curso> miAlgortimo = predicado;
+            //ASIGNACION DE PREDICATE            
+            // Predicate<Curso> miAlgortimo = Predicado;
             
-            //elimando especificamente el elemento con el ganador 301
-            escuela2.Cursos.RemoveAll(miAlgortimo);
+            //ELIMINANDO EL ELEMENTO APUNTADO POR EL PREDICATE DIRECTO
+            //escuela2.Cursos.RemoveAll(Predicado);
 
+            //ELIMINANDO EL ELEMENTO CON FUNCION Y PREDICATE
+            //escuela2.Cursos.RemoveAll(delegate (Curso cur) {return cur.Name == "666";});
+
+            //ELIMINANDO EL ELEMENTO CON FUNCION LAMBDA SIMPLIFICADA Y PREDICATE
+            escuela2.Cursos.RemoveAll((Curso cur) => cur.Name == "666" && cur.Jornada == TipoJornada.Mañana);
+
+            WriteLine("==============");
+            WriteLine("CURSO ELIMINADO CON PREDICATE");
             //imprimir cursos de escuela 2
             ImprimirCursosEscuelas(escuela2);
 
-            
-
-            // bool rta = 10 == 10;//true
-            // int cantidad = 10;
-
-            // if (rta == false)
-            // {
-            //     WriteLine("Se cumplio la condición #1");
-            // }
-            // else if (cantidad > 15)
-            // {
-            //     WriteLine("Se cumplio la condición #2");
-            // }
-            // else
-            // {
-            //     WriteLine("NO Se cumplio la condición");
-            // }
-
-            // if(cantidad > 5 && rta == false)
-            // {
-            //     WriteLine("Se cumplio la condición #3");
-            // }
-
-            
-            // if(cantidad > 5 && rta )
-            // {
-            //     WriteLine("Se cumplio la condición #4");
-            // }
-
-            // cantidad = 10;
-            // if(
-            //     (cantidad > 15 || !rta) 
-            //     && (cantidad % 5 == 0 )
-            // )
-            // {
-            //     WriteLine("Se cumplio la condición #5");
-            // }
-
-
         }
 
-        private static bool predicado(Curso curobj)
+        private static bool Predicado(Curso curobj)
         {
-            return curobj.Name == "201";
+            return curobj.Name == "666";
         }
 
         private static void ImprimirCursosEscuelas(Escuela escuela2)
         {
-            System.Console.WriteLine("================");
-            System.Console.WriteLine("CURSOS DE ESCUELA");
-            System.Console.WriteLine("================");
+            WriteLine("================");
+            WriteLine("CURSOS DE ESCUELA");
+            WriteLine("================");
 
             if(escuela2?.Cursos != null){
                 foreach(var curso in escuela2.Cursos){
@@ -179,32 +142,9 @@ namespace CoreEscuela
                 }
             }
         }
-
-        // private static void ImprimirCursos(List<Curso> arregloCurso){
-        //     int contador = 0;
-        //     while(contador < arregloCurso.Length){
-        //         System.Console.WriteLine($"Nombre: {arregloCurso[contador].Name}, Id: {arregloCurso[contador].UniqueId}");
-        //         contador++;
-        //     }
-        // }
-
-        // private static void ImprimirCursosDoWhile(List<Curso> arregloCurso){
-        //     int contador = 0;
-        //     do{
-        //         System.Console.WriteLine($"Nombre: {arregloCurso[contador].Name}, Id: {arregloCurso[contador].UniqueId}");
-        //         contador++;
-        //     }while(contador < arregloCurso.Length);
-        // }
-
-        // private static void ImprimirCursosFor(List<Curso> arregloCurso){
-        //     for(int i = 0; i < arregloCurso.Length; i ++){
-        //         System.Console.WriteLine($"Name : {arregloCurso[i].Name}, ID: {arregloCurso[i].UniqueId}, Jornada: {arregloCurso[i].Jornada}");
-        //     }
-        // }
-
         private static void ImprimirCursosForEach(Curso[] arregloCurso){
             foreach(var curso in arregloCurso){
-                System.Console.WriteLine($"Name: {curso.Name} ID: {curso.UniqueId} Jornada: {curso.Jornada}");
+                WriteLine($"Name: {curso.Name} ID: {curso.UniqueId} Jornada: {curso.Jornada}");
             }
         }
     }
