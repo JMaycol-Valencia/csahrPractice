@@ -21,12 +21,40 @@ namespace CoreEscuela
                 new Curso("106", TipoJornada.Mañana),
                 new Curso("107", TipoJornada.Tarde)
             };
-            
-            escuela2.Cursos = new Curso[]{
+
+            //system.collections.generic
+            //modificando la asignacion dearreglo a una coleccion
+            var listaCurso = new List<Curso>(){
                 new Curso("201", TipoJornada.Mañana),
                 new Curso("202", TipoJornada.Tarde),
                 new Curso("203", TipoJornada.Noche)
             };
+
+            //asignacion de la lista de cursos a la escuela
+            escuela2.Cursos = listaCurso;
+            //AGREGACION DE PROPIEDAD ANTES DESPUES DE QUE SE HAYA CREADO EL OBJETO
+            escuela2.Cursos.Add(new Curso("204", TipoJornada.Noche));
+            escuela2.Cursos.Add(new Curso("205", TipoJornada.Tarde));
+            escuela2.Cursos.Add(new Curso("206", TipoJornada.Tarde));
+
+            var otraLista = new List<Curso>(){
+                new Curso("207", TipoJornada.Noche),
+                new("208", TipoJornada.Mañana),
+                new Curso("209", TipoJornada.Mañana),
+
+            };
+
+            Curso cursoTemp = new Curso("666", TipoJornada.Mañana);
+            escuela2.Cursos.Add(cursoTemp);
+            //metodo para agregar una lista seguida de otra
+            escuela2.Cursos.AddRange(otraLista);
+        
+            
+            // escuela2.Cursos = new Curso[]{
+            //     new Curso("201", TipoJornada.Mañana),
+            //     new Curso("202", TipoJornada.Tarde),
+            //     new Curso("203", TipoJornada.Noche)
+            // };
 
             //ARREGLO DE CURSOS SIMPLIFICADO 2
             // Curso[] arregloCurso2 = {
@@ -63,56 +91,80 @@ namespace CoreEscuela
             System.Console.WriteLine("RRECORRIDO DE ARREGLO");
             System.Console.WriteLine("WHILE");
             System.Console.WriteLine("==============");
-            ImprimirCursos(arregloCurso);
+            //ImprimirCursos(arregloCurso);
             System.Console.WriteLine("DO WHILE");
             System.Console.WriteLine("==============");
-            ImprimirCursosDoWhile(arregloCurso);
+            //ImprimirCursosDoWhile(arregloCurso);
             System.Console.WriteLine("FOR");
             System.Console.WriteLine("==============");
-            ImprimirCursosFor(arregloCurso);
+            //ImprimirCursosFor(arregloCurso);
             System.Console.WriteLine("FOREACH");
             System.Console.WriteLine("==============");
             ImprimirCursosForEach(arregloCurso);
 
+            //eliminar
+            otraLista.Clear();
+
+            //imprimir hash
+            WriteLine("=============");
+            WriteLine("HASHCODE " + cursoTemp.GetHashCode());
+
+            //imprimir cursos de escuela
             ImprimirCursosEscuelas(escuela2);
 
-            bool rta = 10 == 10;//true
-            int cantidad = 10;
+            //eliminar curso 301 segund el PREDICATE asignado            
+            Predicate<Curso> miAlgortimo = predicado;
+            
+            //elimando especificamente el elemento con el ganador 301
+            escuela2.Cursos.RemoveAll(miAlgortimo);
 
-            if (rta == false)
-            {
-                WriteLine("Se cumplio la condición #1");
-            }
-            else if (cantidad > 15)
-            {
-                WriteLine("Se cumplio la condición #2");
-            }
-            else
-            {
-                WriteLine("NO Se cumplio la condición");
-            }
-
-            if(cantidad > 5 && rta == false)
-            {
-                WriteLine("Se cumplio la condición #3");
-            }
+            //imprimir cursos de escuela 2
+            ImprimirCursosEscuelas(escuela2);
 
             
-            if(cantidad > 5 && rta )
-            {
-                WriteLine("Se cumplio la condición #4");
-            }
 
-            cantidad = 10;
-            if(
-                (cantidad > 15 || !rta) 
-                && (cantidad % 5 == 0 )
-            )
-            {
-                WriteLine("Se cumplio la condición #5");
-            }
+            // bool rta = 10 == 10;//true
+            // int cantidad = 10;
+
+            // if (rta == false)
+            // {
+            //     WriteLine("Se cumplio la condición #1");
+            // }
+            // else if (cantidad > 15)
+            // {
+            //     WriteLine("Se cumplio la condición #2");
+            // }
+            // else
+            // {
+            //     WriteLine("NO Se cumplio la condición");
+            // }
+
+            // if(cantidad > 5 && rta == false)
+            // {
+            //     WriteLine("Se cumplio la condición #3");
+            // }
+
+            
+            // if(cantidad > 5 && rta )
+            // {
+            //     WriteLine("Se cumplio la condición #4");
+            // }
+
+            // cantidad = 10;
+            // if(
+            //     (cantidad > 15 || !rta) 
+            //     && (cantidad % 5 == 0 )
+            // )
+            // {
+            //     WriteLine("Se cumplio la condición #5");
+            // }
 
 
+        }
+
+        private static bool predicado(Curso curobj)
+        {
+            return curobj.Name == "201";
         }
 
         private static void ImprimirCursosEscuelas(Escuela escuela2)
@@ -128,27 +180,27 @@ namespace CoreEscuela
             }
         }
 
-        private static void ImprimirCursos(Curso[] arregloCurso){
-            int contador = 0;
-            while(contador < arregloCurso.Length){
-                System.Console.WriteLine($"Nombre: {arregloCurso[contador].Name}, Id: {arregloCurso[contador].UniqueId}");
-                contador++;
-            }
-        }
+        // private static void ImprimirCursos(List<Curso> arregloCurso){
+        //     int contador = 0;
+        //     while(contador < arregloCurso.Length){
+        //         System.Console.WriteLine($"Nombre: {arregloCurso[contador].Name}, Id: {arregloCurso[contador].UniqueId}");
+        //         contador++;
+        //     }
+        // }
 
-        private static void ImprimirCursosDoWhile(Curso[] arregloCurso){
-            int contador = 0;
-            do{
-                System.Console.WriteLine($"Nombre: {arregloCurso[contador].Name}, Id: {arregloCurso[contador].UniqueId}");
-                contador++;
-            }while(contador < arregloCurso.Length);
-        }
+        // private static void ImprimirCursosDoWhile(List<Curso> arregloCurso){
+        //     int contador = 0;
+        //     do{
+        //         System.Console.WriteLine($"Nombre: {arregloCurso[contador].Name}, Id: {arregloCurso[contador].UniqueId}");
+        //         contador++;
+        //     }while(contador < arregloCurso.Length);
+        // }
 
-        private static void ImprimirCursosFor(Curso[] arregloCurso){
-            for(int i = 0; i < arregloCurso.Length; i ++){
-                System.Console.WriteLine($"Name : {arregloCurso[i].Name}, ID: {arregloCurso[i].UniqueId}, Jornada: {arregloCurso[i].Jornada}");
-            }
-        }
+        // private static void ImprimirCursosFor(List<Curso> arregloCurso){
+        //     for(int i = 0; i < arregloCurso.Length; i ++){
+        //         System.Console.WriteLine($"Name : {arregloCurso[i].Name}, ID: {arregloCurso[i].UniqueId}, Jornada: {arregloCurso[i].Jornada}");
+        //     }
+        // }
 
         private static void ImprimirCursosForEach(Curso[] arregloCurso){
             foreach(var curso in arregloCurso){

@@ -15,7 +15,7 @@ namespace CoreEscuela.Entidades
         public string ?Departamento { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
-        public Curso[] Cursos { get; set; }
+        public List<Curso> Cursos { get; set; }
 
         //Constructor Ejeemplo 1
         // public Escuela(string nombre, int año){
