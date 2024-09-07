@@ -1,6 +1,6 @@
 namespace CoreEscuela.Entidades
 {
-    class Escuela
+    public class Escuela
     {
         //Atributos
         private string nombre = String.Empty;
@@ -15,7 +15,7 @@ namespace CoreEscuela.Entidades
         public string ?Departamento { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
-        public List<Curso> Cursos { get; set; }
+        public List<Curso> ?Cursos { get; set; }
 
         //Constructor Ejeemplo 1
         // public Escuela(string nombre, int año){
@@ -32,7 +32,7 @@ namespace CoreEscuela.Entidades
 
 
         //Constructor Ejemplo 2
-        public Escuela(string nombre, int año) => (Nombre, AñoCreacion) = (nombre, año);
+        //public Escuela(string nombre, int año) => (Nombre, AñoCreacion) = (nombre, año);
 
         public Escuela(string nombre, int año, TiposEscuela tipo, string departamento = "")
         {
