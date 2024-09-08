@@ -19,18 +19,19 @@ namespace CoreEscuela
             WriteLine("ESCUELAS");
             Printer.DibujarLinea();
             WriteLine(engine.Escuela);
+            Printer.PitarMac();
             ImprimirCursosEscuelas(engine.Escuela);
 
         }
         private static void ImprimirCursosEscuelas(Escuela ?escuela)
         {
-            Printer.DibujarLinea();
-            WriteLine("CURSOS DE ESCUELA");
-            Printer.DibujarLinea();
+
+            Printer.DibujarLinea(escuela.Nombre.Length + 4 );
+            Printer.WriteTittle($"| {escuela.Nombre} |");
 
             if(escuela?.Cursos != null){
                 foreach(var curso in escuela.Cursos){
-                    WriteLine($"Name: {curso.Name}, ID: {curso.UniqueId}");
+                    Printer.WriteTittle($"Name: {curso.Name}, ID: {curso.UniqueId}");
                 }
             }
         }
