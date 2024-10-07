@@ -19,9 +19,10 @@ namespace CoreEscuela.Util
 
         public static void Pitar(int hz = 2000, int tiempo = 500, int cantidad = 1)
         {
+            //COMPARACION DE
             while (cantidad-- > 0)
             {
-                Console.Beep(hz, tiempo);
+                Beep(hz, tiempo);
             }
         }
 

@@ -18,12 +18,12 @@ namespace CoreEscuela
             //LLAMADAS POR CONSOLA
             WriteLine("ESCUELAS");
             Printer.DibujarLinea();
-            WriteLine(engine.Escuela);
-            Printer.PitarMac();
-            ImprimirCursosEscuelas(engine.Escuela);
+            WriteLine(engine.EscuelaA);
+            Printer.Pitar();
+            ImprimirCursosEscuelas(engine.EscuelaA);
 
         }
-        private static void ImprimirCursosEscuelas(Escuela ?escuela)
+        private static void ImprimirCursosEscuelas(Escuela? escuela)
         {
 
             Printer.DibujarLinea(escuela.Nombre.Length + 4 );

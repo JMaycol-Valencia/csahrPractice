@@ -2,6 +2,7 @@ namespace CoreEscuela.Entidades
 {
     public class Escuela
     {
+        public string UniqueId{get; set;} = Guid.NewGuid().ToString();
         //Atributos
         private string nombre = String.Empty;
         //Propiedad Ejemplo 1
@@ -40,6 +41,7 @@ namespace CoreEscuela.Entidades
             (Nombre, AñoCreacion, TipoEscuela) = (nombre, año, tipo);
             //ASIGNACION DE VALORES OPCIONALES
             Departamento = departamento;
+            Cursos = new List<Curso>();
         }
 
       
