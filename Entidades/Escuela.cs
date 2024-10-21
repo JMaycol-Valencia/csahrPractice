@@ -1,22 +1,13 @@
 namespace CoreEscuela.Entidades
 {
-    public class Escuela
-    {
-        public string UniqueId{get; set;} = Guid.NewGuid().ToString();
-        //Atributos
-        private string nombre = String.Empty;
-        //Propiedad Ejemplo 1
-        public string Nombre
-        {
-            get { return "copia: " + nombre; }
-            set { nombre = value.ToUpper(); }
-        }    
+    public class Escuela:ObjetoEscuelaBase
+    {  
         //Propiedad Ejemplo 2 (mas comun)
         public int AñoCreacion { get; set; }
-        public string ?Departamento { get; set; }
+        public string? Departamento { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
-        public List<Curso> ?Cursos { get; set; }
+        public List<Curso>? Cursos { get; set; }
 
         //Constructor Ejeemplo 1
         // public Escuela(string nombre, int año){

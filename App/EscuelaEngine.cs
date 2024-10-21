@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace CoreEscuela
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela? EscuelaA { get; set; }
 
@@ -19,12 +19,15 @@ namespace CoreEscuela
 
             CargarCursos();
             CargarAsignaturas();
-
-            //CargarEvaluaciones();
+            CargarEvaluaciones();
         }
 
         private void CargarCursos()
         {
+            if(EscuelaA?.Cursos == null){
+                return;
+            }
+
             EscuelaA.Cursos = new List<Curso>(){
                 new Curso("201", TipoJornada.Mañana),
                 new Curso("202", TipoJornada.Tarde),
@@ -51,10 +54,10 @@ namespace CoreEscuela
                 {
                     var listaAsignaturas = new List<Asignatura>()
                     {
-                        new Asignatura{Name="Matematicas"},
-                        new Asignatura{Name="Ciencias Sociales"},
-                        new Asignatura{Name="Eduacion Fisica"},
-                        new Asignatura{Name="Castellano"}
+                        new Asignatura{Nombre="Matematicas"},
+                        new Asignatura{Nombre="Ciencias Sociales"},
+                        new Asignatura{Nombre="Eduacion Fisica"},
+                        new Asignatura{Nombre="Castellano"}
                     };
                     curso.Asignaturas = listaAsignaturas;
 
@@ -105,17 +108,17 @@ namespace CoreEscuela
                         // Verificar si la propiedad Evaluaciones de alumno es null
                         if (alumno.Evaluaciones == null)
                         {
-                            alumno.Evaluaciones = new List<Evaluaciones>();
+                            alumno.Evaluaciones = new List<Evaluacion>();
                         }
 
                         var rnd = new Random(System.Environment.TickCount);
 
                         for (int i = 0; i < 5; i++)
                         {
-                            var ev = new Evaluaciones
+                            var ev = new Evaluacion
                             {
                                 Asignatura = asignatura,
-                                Name = $"{asignatura.Name} Ev#{i + 1}",
+                                Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
                                 Nota = (float)(5 * rnd.NextDouble()),
                                 Alumno = alumno
                             };
