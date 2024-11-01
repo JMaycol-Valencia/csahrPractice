@@ -6,7 +6,7 @@ namespace CoreEscuela
 {
     public sealed class EscuelaEngine
     {
-        public Escuela? EscuelaA { get; set; }
+        public Escuela EscuelaA { get; set; }
 
         public EscuelaEngine()
         {
@@ -24,17 +24,17 @@ namespace CoreEscuela
 
         private void CargarCursos()
         {
-            if(EscuelaA?.Cursos == null){
+            if (EscuelaA?.Cursos == null)
+            {
                 return;
             }
 
             EscuelaA.Cursos = new List<Curso>(){
-                new Curso("201", TipoJornada.Mañana),
-                new Curso("202", TipoJornada.Tarde),
-                new Curso("203", TipoJornada.Noche),
-                new Curso("206", TipoJornada.Noche),
-                new Curso("207", TipoJornada.Mañana),
-                new Curso("208", TipoJornada.Mañana),
+                new Curso(){ Nombre = "101", Jornada = TipoJornada.Mañana},
+                new Curso(){Nombre = "201", Jornada = TipoJornada.Mañana},
+                new Curso(){Nombre = "301", Jornada = TipoJornada.Mañana},
+                new Curso(){Nombre = "401", Jornada = TipoJornada.Tarde},
+                new Curso(){Nombre = "501", Jornada = TipoJornada.Tarde},
             };
 
             //GENERANDO NUMERO RANDOM PARA CARGARALUMNOS A LOS CURSOS
@@ -42,9 +42,11 @@ namespace CoreEscuela
             foreach (var c in EscuelaA.Cursos)
             {
                 var random = r.Next(5, 20);
-                c.Alumnos = (List<Alumno>?)GenerarAlumnos(random);
+                c.Alumnos = (List<Alumno>)GenerarAlumnos(random);
             }
         }
+
+
         private void CargarAsignaturas()
         {
             //FOREACH PARA CARGAR LAS ASIGNATURAS
@@ -127,6 +129,44 @@ namespace CoreEscuela
                     }
                 }
             }
+        }
+        public List<ObjetoEscuelaBase> GetObjetoEscuela()
+        {
+            var listObj = new List<ObjetoEscuelaBase>();
+
+            // Validacion para que  EscuelaA sea una instancia de la clase Escuela
+            if (EscuelaA != null)
+            {
+                listObj.Add(EscuelaA);
+
+                if (EscuelaA.Cursos != null)
+                {
+                    listObj.AddRange(EscuelaA.Cursos);
+
+                    foreach (var curso in EscuelaA.Cursos)
+                    {
+                        if (curso.Asignaturas != null)
+                        {
+                            listObj.AddRange(curso.Asignaturas);
+                        }
+
+                        if (curso.Alumnos != null)
+                        {
+                            listObj.AddRange(curso.Alumnos);
+
+                            foreach (var alumno in curso.Alumnos)
+                            {
+                                if (alumno.Evaluaciones != null)
+                                {
+                                    listObj.AddRange(alumno.Evaluaciones);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return listObj;
         }
     }
 }

@@ -2,22 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreEscuela.Util;
 
 namespace CoreEscuela.Entidades
 {
-    public class Curso:ObjetoEscuelaBase
+    public class Curso:ObjetoEscuelaBase, ILugar
     {
 
-        public TipoJornada? Jornada {get; set;}
-        public List<Asignatura>? Asignaturas{get;set;}
-        public List<Alumno>? Alumnos{get;set;}
+        public TipoJornada Jornada {get; set;}
+        public List<Asignatura> Asignaturas{get;set;}
+        public List<Alumno> Alumnos{get;set;}
 
-        public Curso( string name, TipoJornada jornada){
-            //ASIGNACION DE ID MEDIANTE EL METODO GUID);
-            //ASIGNACION OBLIGATORIA MEDIANTE EL CONSTRUCTOR
-            this.Jornada = jornada;
+        public string Direccion { get; set; }
+
+        public void limpiarLugar()
+        {
+            Printer.DrawLine();
+            Console.WriteLine("Limpiando Curso...");
+            Console.WriteLine($"Curso {Nombre} limpio");
         }
-
-
     }
 }

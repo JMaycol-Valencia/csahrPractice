@@ -1,30 +1,16 @@
+using CoreEscuela.Util;
+
 namespace CoreEscuela.Entidades
 {
-    public class Escuela:ObjetoEscuelaBase
+    public class Escuela:ObjetoEscuelaBase, ILugar
     {  
         //Propiedad Ejemplo 2 (mas comun)
         public int AñoCreacion { get; set; }
-        public string? Departamento { get; set; }
+        public string Departamento { get; set; }
+        public string Direccion { get; set; }
         public TiposEscuela TipoEscuela { get; set; }
 
-        public List<Curso>? Cursos { get; set; }
-
-        //Constructor Ejeemplo 1
-        // public Escuela(string nombre, int año){
-        //     this.nombre = nombre;
-        //     this.AñoCreacion = año;
-        // }
-        // public Escuela(string nombre, int año,TiposEscuela tipo, string departamento = "")
-        // {
-        //     this.Nombre = nombre;
-        //     this.AñoCreacion = año;
-        //     this.TipoEscuela = tipo;    
-        //     this.Departamento = departamento;
-        // }
-
-
-        //Constructor Ejemplo 2
-        //public Escuela(string nombre, int año) => (Nombre, AñoCreacion) = (nombre, año);
+        public List<Curso> Cursos { get; set; }
 
         public Escuela(string nombre, int año, TiposEscuela tipo, string departamento = "")
         {
@@ -35,10 +21,20 @@ namespace CoreEscuela.Entidades
             Cursos = new List<Curso>();
         }
 
-      
         public override string ToString()
         {
             return $"Nombre\"{Nombre}\", Creacon{AñoCreacion}, {System.Environment.NewLine} Tipo{ TipoEscuela}, Departamento{ Departamento}";
         }
+
+        public void limpiarLugar()
+        {
+            Printer.DrawLine();
+            Printer.WriteTittle("Limpiando Escuela...");
+            foreach(var curso in Cursos){
+                curso.limpiarLugar();
+            }
+            Console.Write($"Escuela {Nombre} limpio");
+            Printer.Pitar(hz:1500,tiempo:500,cantidad:2);
+        }        
     }
 }
