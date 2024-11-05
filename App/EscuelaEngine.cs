@@ -12,7 +12,7 @@ namespace CoreEscuela
         {
 
         }
-
+        #region  INICIALIZADOR   
         public void inicializar()
         {
             EscuelaA = new Escuela("Escuela triste", 1998, TiposEscuela.Secundaria, departamento: "cochabamba");
@@ -21,51 +21,100 @@ namespace CoreEscuela
             CargarAsignaturas();
             CargarEvaluaciones();
         }
-
-        private void CargarCursos()
-        {
-            if (EscuelaA?.Cursos == null)
-            {
-                return;
-            }
-
-            EscuelaA.Cursos = new List<Curso>(){
-                new Curso(){ Nombre = "101", Jornada = TipoJornada.Mañana},
-                new Curso(){Nombre = "201", Jornada = TipoJornada.Mañana},
-                new Curso(){Nombre = "301", Jornada = TipoJornada.Mañana},
-                new Curso(){Nombre = "401", Jornada = TipoJornada.Tarde},
-                new Curso(){Nombre = "501", Jornada = TipoJornada.Tarde},
-            };
-
-            //GENERANDO NUMERO RANDOM PARA CARGARALUMNOS A LOS CURSOS
-            Random r = new Random();
-            foreach (var c in EscuelaA.Cursos)
-            {
-                var random = r.Next(5, 20);
-                c.Alumnos = (List<Alumno>)GenerarAlumnos(random);
-            }
+        #endregion     
+        #region OBTENER OBJETOS
+        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+            bool traeEvaluaciones = true,
+            bool traeAlumnos = true,
+            bool traeAsignatura = true,
+            bool traeCursos = true)
+        { 
+            return GetObjetoEscuela(out int dummy, out dummy, out dummy, out dummy);
         }
 
+        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+            out int conteoEvaluaciones,
+            bool traeEvaluaciones = true,
+            bool traeAlumnos = true,
+            bool traeAsignatura = true,
+            bool traeCursos = true)
+        { 
+            return GetObjetoEscuela(out conteoEvaluaciones, out int dummy, out dummy, out dummy);
+        }
 
-        private void CargarAsignaturas()
+        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+            out int conteoEvaluaciones,
+            out int conteoCursos,
+            bool traeEvaluaciones = true,
+            bool traeAlumnos = true,
+            bool traeAsignatura = true,
+            bool traeCursos = true)
+        { 
+            return GetObjetoEscuela(out conteoEvaluaciones, out conteoCursos, out int dummy, out dummy);
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+            out int conteoEvaluaciones,
+            out int conteoCursos,
+            out int conteoAsignaturas,
+            bool traeEvaluaciones = true,
+            bool traeAlumnos = true,
+            bool traeAsignatura = true,
+            bool traeCursos = true)
+        { 
+            return GetObjetoEscuela(out conteoEvaluaciones, out conteoCursos, out conteoAsignaturas, out int dummy);
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+            //parametros de salida
+            out int conteoEvaluaciones,
+            out int conteoAlumnos,
+            out int conteoAsignaturas,
+            out int conteoCursos,
+            bool traeEvaluaciones = true,
+            bool traeAlumnos = true,
+            bool traeAsignatura = true,
+            bool traeCursos = true)
         {
-            //FOREACH PARA CARGAR LAS ASIGNATURAS
-            if (EscuelaA?.Cursos != null)
+            conteoEvaluaciones = 0;
+            conteoAlumnos = 0;
+            conteoAsignaturas = 0;
+            conteoCursos = 0;
+            var listObj = new List<ObjetoEscuelaBase>();
+            listObj.Add(EscuelaA);
+
+            if (traeCursos)
             {
+                listObj.AddRange(EscuelaA.Cursos);
+                conteoCursos += EscuelaA.Cursos.Count;
                 foreach (var curso in EscuelaA.Cursos)
                 {
-                    var listaAsignaturas = new List<Asignatura>()
-                    {
-                        new Asignatura{Nombre="Matematicas"},
-                        new Asignatura{Nombre="Ciencias Sociales"},
-                        new Asignatura{Nombre="Eduacion Fisica"},
-                        new Asignatura{Nombre="Castellano"}
-                    };
-                    curso.Asignaturas = listaAsignaturas;
+                    conteoAsignaturas += curso.Asignaturas.Count;
+                    conteoAlumnos += curso.Alumnos.Count;
+                    if (traeAsignatura)
+                        listObj.AddRange(curso.Asignaturas);
 
-                };
+                    if (traeAlumnos)
+                    {
+                        listObj.AddRange(curso.Alumnos);
+
+                        if (traeEvaluaciones)
+                        {
+                            foreach (var alumno in curso.Alumnos)
+                            {
+                                listObj.AddRange(alumno.Evaluaciones);
+                                conteoEvaluaciones += alumno.Evaluaciones.Count;
+
+                            }
+                        }
+                    }
+                }
             }
+
+            return (listObj);
         }
+        #endregion
+        #region  METODOS PARA GENERAR
         private List<Alumno> GenerarAlumnos(int cantidad)
         {
             string[] name1 = { "Juan", "Carlos", "Pelaes", "Nicolas", "Alvaro" };
@@ -81,6 +130,8 @@ namespace CoreEscuela
             //AL ORDENAR POR EL UNIQUEID , EL ORDEN SERA ALEATORIO YA QUE EL UNIQUE ID SE GENERA ALEATORIAMENTE PARA CADA ALUMNO
             return listaAlumnos.OrderBy((al) => al.UniqueId).Take(cantidad).ToList();
         }
+        #endregion 
+        #region METODOS DE CARGA 
         private void CargarEvaluaciones()
         {
             // Verificar si EscuelaA o su propiedad Cursos es null
@@ -130,43 +181,48 @@ namespace CoreEscuela
                 }
             }
         }
-        public List<ObjetoEscuelaBase> GetObjetoEscuela()
+        private void CargarCursos()
         {
-            var listObj = new List<ObjetoEscuelaBase>();
-
-            // Validacion para que  EscuelaA sea una instancia de la clase Escuela
-            if (EscuelaA != null)
+            if (EscuelaA?.Cursos == null)
             {
-                listObj.Add(EscuelaA);
-
-                if (EscuelaA.Cursos != null)
-                {
-                    listObj.AddRange(EscuelaA.Cursos);
-
-                    foreach (var curso in EscuelaA.Cursos)
-                    {
-                        if (curso.Asignaturas != null)
-                        {
-                            listObj.AddRange(curso.Asignaturas);
-                        }
-
-                        if (curso.Alumnos != null)
-                        {
-                            listObj.AddRange(curso.Alumnos);
-
-                            foreach (var alumno in curso.Alumnos)
-                            {
-                                if (alumno.Evaluaciones != null)
-                                {
-                                    listObj.AddRange(alumno.Evaluaciones);
-                                }
-                            }
-                        }
-                    }
-                }
+                return;
             }
 
-            return listObj;
+            EscuelaA.Cursos = new List<Curso>(){
+                new Curso(){ Nombre = "101", Jornada = TipoJornada.Mañana},
+                new Curso(){Nombre = "201", Jornada = TipoJornada.Mañana},
+                new Curso(){Nombre = "301", Jornada = TipoJornada.Mañana},
+                new Curso(){Nombre = "401", Jornada = TipoJornada.Tarde},
+                new Curso(){Nombre = "501", Jornada = TipoJornada.Tarde},
+            };
+
+            //GENERANDO NUMERO RANDOM PARA CARGARALUMNOS A LOS CURSOS
+            Random r = new Random();
+            foreach (var c in EscuelaA.Cursos)
+            {
+                var random = r.Next(5, 20);
+                c.Alumnos = (List<Alumno>)GenerarAlumnos(random);
+            }
         }
+        private void CargarAsignaturas()
+        {
+            //FOREACH PARA CARGAR LAS ASIGNATURAS
+            if (EscuelaA?.Cursos != null)
+            {
+                foreach (var curso in EscuelaA.Cursos)
+                {
+                    var listaAsignaturas = new List<Asignatura>()
+                    {
+                        new Asignatura{Nombre="Matematicas"},
+                        new Asignatura{Nombre="Ciencias Sociales"},
+                        new Asignatura{Nombre="Eduacion Fisica"},
+                        new Asignatura{Nombre="Castellano"}
+                    };
+                    curso.Asignaturas = listaAsignaturas;
+
+                };
+            }
+        }
+        #endregion
     }
 }

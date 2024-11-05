@@ -33,7 +33,7 @@ namespace CoreEscuela.Entidades
             foreach(var curso in Cursos){
                 curso.limpiarLugar();
             }
-            Console.Write($"Escuela {Nombre} limpio");
+            Printer.WriteTittle($"Escuela \"{Nombre}\"limpio");
             Printer.Pitar(hz:1500,tiempo:500,cantidad:2);
         }        
     }

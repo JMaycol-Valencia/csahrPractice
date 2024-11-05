@@ -21,16 +21,16 @@ namespace CoreEscuela
             WriteLine(engine.EscuelaA);
             //Printer.Pitar();
             ImprimirCursosEscuelas(engine.EscuelaA);
-            var listaObjetos = engine.GetObjetoEscuela();
-            //RRECORRIENDO LA LISTA DE OBJETOS PARA MOSTRARLA
-            // foreach (var item in listaObjetos)
-            // {
-            //     WriteLine(item.ToString());
-            // }
-            
-            var listaLugar = from obj in listaObjetos
-                            where obj is ILugar
-                            select (ILugar) obj;
+            int dummy = 0;
+            var listaObjetos2 = engine.GetObjetoEscuela(out int conteoAlumnos, out int conteoAsignaturas , out int conteoCursos, out int conteoEvaluaciones);
+            var listaObjetos3 = engine.GetObjetoEscuela();
+
+            //engine.EscuelaA.limpiarLugar();
+
+            //MANEJO DE LINQ PARA OBTENER LOS OBTEJOS PARTICULARES DE LA LISTAOBJETOS
+            // var listaLugar = from obj in listaObjetos
+            //                 where obj is ILugar
+            //                 select (ILugar) obj;
 
         }
         private static void ImprimirCursosEscuelas(Escuela escuela)

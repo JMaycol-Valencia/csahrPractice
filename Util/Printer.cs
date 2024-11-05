@@ -10,7 +10,7 @@ namespace CoreEscuela.Util
             var linea = "".PadLeft(tam, '=');
             WriteLine(linea);
         }
-        public static void WriteTittle(string titulo = "Patito")
+        public static void WriteTittle(string titulo)
         {
             DrawLine();
             WriteLine(titulo);
