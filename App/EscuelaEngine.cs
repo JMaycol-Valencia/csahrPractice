@@ -24,6 +24,16 @@ namespace CoreEscuela
         #endregion     
         #region OBTENER OBJETOS
 
+        public Dictionary<string, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
+        {
+            var diccionario = new Dictionary<string, IEnumerable<ObjetoEscuelaBase>>();
+
+            diccionario.Add("Escuela",new[] {EscuelaA});
+            diccionario.Add("Cursos", EscuelaA.Cursos.Cast<ObjetoEscuelaBase>());
+
+            return diccionario;
+        }
+
         public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuela(
             bool traeEvaluaciones = true,
             bool traeAlumnos = true,

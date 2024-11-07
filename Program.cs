@@ -29,18 +29,8 @@ namespace CoreEscuela
             foreach(var keyValPair in diccionario){
                 WriteLine($"Value : {keyValPair.Value} Key: {keyValPair.Key}");
             }
-
-            Printer.WriteTittle("Acceos al Diccionario");
-            WriteLine(diccionario[12]);
-
-            var dic=  new Dictionary<string , string>();
-            dic.Add("peli uno", "buena");
-            WriteLine(dic["peli uno"]);
-
-            //LA SIGUEINTE LINEA NOS DARA UN ERROR
-            dic.Add("peli uno", "Super buena");
-            WriteLine(dic["peli uno"]);
             
+            var diccionariotmp = engine.GetDiccionarioObjetos();
             //MANEJO DE LINQ PARA OBTENER LOS OBTEJOS PARTICULARES DE LA LISTAOBJETOS
             // var listaLugar = from obj in listaObjetos
             //                 where obj is ILugar
