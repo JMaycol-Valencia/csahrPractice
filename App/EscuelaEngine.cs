@@ -23,7 +23,8 @@ namespace CoreEscuela
         }
         #endregion     
         #region OBTENER OBJETOS
-        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuela(
             bool traeEvaluaciones = true,
             bool traeAlumnos = true,
             bool traeAsignatura = true,
@@ -32,7 +33,7 @@ namespace CoreEscuela
             return GetObjetoEscuela(out int dummy, out dummy, out dummy, out dummy);
         }
 
-        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuela(
             out int conteoEvaluaciones,
             bool traeEvaluaciones = true,
             bool traeAlumnos = true,
@@ -42,7 +43,7 @@ namespace CoreEscuela
             return GetObjetoEscuela(out conteoEvaluaciones, out int dummy, out dummy, out dummy);
         }
 
-        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuela(
             out int conteoEvaluaciones,
             out int conteoCursos,
             bool traeEvaluaciones = true,
@@ -53,7 +54,7 @@ namespace CoreEscuela
             return GetObjetoEscuela(out conteoEvaluaciones, out conteoCursos, out int dummy, out dummy);
         }
 
-        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuela(
             out int conteoEvaluaciones,
             out int conteoCursos,
             out int conteoAsignaturas,
@@ -65,7 +66,7 @@ namespace CoreEscuela
             return GetObjetoEscuela(out conteoEvaluaciones, out conteoCursos, out conteoAsignaturas, out int dummy);
         }
 
-        public List<ObjetoEscuelaBase> GetObjetoEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetoEscuela(
             //parametros de salida
             out int conteoEvaluaciones,
             out int conteoAlumnos,
@@ -111,7 +112,7 @@ namespace CoreEscuela
                 }
             }
 
-            return (listObj);
+            return (listObj.AsReadOnly());
         }
         #endregion
         #region  METODOS PARA GENERAR

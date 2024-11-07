@@ -21,12 +21,26 @@ namespace CoreEscuela
             WriteLine(engine.EscuelaA);
             //Printer.Pitar();
             ImprimirCursosEscuelas(engine.EscuelaA);
-            int dummy = 0;
-            var listaObjetos2 = engine.GetObjetoEscuela(out int conteoAlumnos, out int conteoAsignaturas , out int conteoCursos, out int conteoEvaluaciones);
-            var listaObjetos3 = engine.GetObjetoEscuela();
+            Dictionary<int, string> diccionario = new Dictionary<int, string>();
+            diccionario.Add(10,"maycol");
+            diccionario.Add(11,"aldrin");
+            diccionario.Add(12,"mariela");
 
-            //engine.EscuelaA.limpiarLugar();
+            foreach(var keyValPair in diccionario){
+                WriteLine($"Value : {keyValPair.Value} Key: {keyValPair.Key}");
+            }
 
+            Printer.WriteTittle("Acceos al Diccionario");
+            WriteLine(diccionario[12]);
+
+            var dic=  new Dictionary<string , string>();
+            dic.Add("peli uno", "buena");
+            WriteLine(dic["peli uno"]);
+
+            //LA SIGUEINTE LINEA NOS DARA UN ERROR
+            dic.Add("peli uno", "Super buena");
+            WriteLine(dic["peli uno"]);
+            
             //MANEJO DE LINQ PARA OBTENER LOS OBTEJOS PARTICULARES DE LA LISTAOBJETOS
             // var listaLugar = from obj in listaObjetos
             //                 where obj is ILugar
