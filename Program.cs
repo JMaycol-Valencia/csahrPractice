@@ -31,10 +31,7 @@ namespace CoreEscuela
             }
             
             var diccionariotmp = engine.GetDiccionarioObjetos();
-            //MANEJO DE LINQ PARA OBTENER LOS OBTEJOS PARTICULARES DE LA LISTAOBJETOS
-            // var listaLugar = from obj in listaObjetos
-            //                 where obj is ILugar
-            //                 select (ILugar) obj;
+            engine.ImprimirDiccionario(diccionariotmp);
 
         }
         private static void ImprimirCursosEscuelas(Escuela escuela)

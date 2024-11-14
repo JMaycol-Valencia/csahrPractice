@@ -1,4 +1,5 @@
 using CoreEscuela.Entidades;
+using CoreEscuela.Util;
 using System.Linq;
 using System.Xml;
 
@@ -12,7 +13,7 @@ namespace CoreEscuela
         {
 
         }
-        #region  INICIALIZADOR   
+        #region INICIALIZADOR   
         public void inicializar()
         {
             EscuelaA = new Escuela("Escuela triste", 1998, TiposEscuela.Secundaria, departamento: "cochabamba");
@@ -21,16 +22,61 @@ namespace CoreEscuela
             CargarAsignaturas();
             CargarEvaluaciones();
         }
-        #endregion     
-        #region OBTENER OBJETOS
+        #endregion
 
-        public Dictionary<string, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
+        public void ImprimirDiccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dic, bool imprEval = false)
         {
-            var diccionario = new Dictionary<string, IEnumerable<ObjetoEscuelaBase>>();
+            foreach (var obj in dic)
+            {
+                Printer.WriteTittle(obj.Key.ToString());
 
-            diccionario.Add("Escuela",new[] {EscuelaA});
-            diccionario.Add("Cursos", EscuelaA.Cursos.Cast<ObjetoEscuelaBase>());
+                foreach (var val in obj.Value)
+                {
+                    if (val is Evaluacion)
+                    {
+                        if (imprEval)
+                            Console.WriteLine(val);
+                    }
+                    else if (val is Escuela)
+                    {
+                        Console.WriteLine("ESCUELA " + val);
+                    }
+                    else if (val is Alumno)
+                    {
+                        Console.WriteLine("ALUMNO " + val);
+                    }
+                    else
+                    {
+                        Console.WriteLine(val);
+                    }
+                }
+            }
+        }
 
+        #region OBTENER OBJETOS
+        public Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
+        {
+            var diccionario = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
+            var listaTemporal = new List<Evaluacion>();
+            var listaTemporalas = new List<Asignatura>();
+            var listaTemporalal = new List<Alumno>();
+
+            diccionario.Add(LlaveDiccionario.Escuela, new[] { EscuelaA });
+            diccionario.Add(LlaveDiccionario.Curso, EscuelaA.Cursos.Cast<ObjetoEscuelaBase>());
+
+            foreach (var cur in EscuelaA.Cursos)
+            {
+                listaTemporalas.AddRange(cur.Asignaturas);
+                listaTemporalal.AddRange(cur.Alumnos);
+
+                foreach (var alum in cur.Alumnos)
+                {
+                    listaTemporal.AddRange(alum.Evaluaciones);
+                }
+            }
+            diccionario.Add(LlaveDiccionario.Asignatura, listaTemporalas.Cast<ObjetoEscuelaBase>());
+            diccionario.Add(LlaveDiccionario.Alumno, listaTemporalal.Cast<ObjetoEscuelaBase>());
+            diccionario.Add(LlaveDiccionario.Evaluacion, listaTemporal.Cast<ObjetoEscuelaBase>());
             return diccionario;
         }
 
@@ -39,7 +85,7 @@ namespace CoreEscuela
             bool traeAlumnos = true,
             bool traeAsignatura = true,
             bool traeCursos = true)
-        { 
+        {
             return GetObjetoEscuela(out int dummy, out dummy, out dummy, out dummy);
         }
 
@@ -49,7 +95,7 @@ namespace CoreEscuela
             bool traeAlumnos = true,
             bool traeAsignatura = true,
             bool traeCursos = true)
-        { 
+        {
             return GetObjetoEscuela(out conteoEvaluaciones, out int dummy, out dummy, out dummy);
         }
 
@@ -60,7 +106,7 @@ namespace CoreEscuela
             bool traeAlumnos = true,
             bool traeAsignatura = true,
             bool traeCursos = true)
-        { 
+        {
             return GetObjetoEscuela(out conteoEvaluaciones, out conteoCursos, out int dummy, out dummy);
         }
 
@@ -72,7 +118,7 @@ namespace CoreEscuela
             bool traeAlumnos = true,
             bool traeAsignatura = true,
             bool traeCursos = true)
-        { 
+        {
             return GetObjetoEscuela(out conteoEvaluaciones, out conteoCursos, out conteoAsignaturas, out int dummy);
         }
 
