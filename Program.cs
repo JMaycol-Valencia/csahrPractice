@@ -11,16 +11,25 @@ namespace CoreEscuela
         static void Main(string[] args)
         {
             WriteLine("Hello World!");
+            
+            //DELEGADOS
+            AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+            //EVENTO DECLARADO CON ARROW FUNCTION
+            AppDomain.CurrentDomain.ProcessExit += (obj, s)=> Printer.WriteTittle("Firma");
+            
 
             var engine =  new EscuelaEngine();
             engine.inicializar();
+            
+            //Forzamos un error o excepcion
+            //throw new Exception();
 
             //LLAMADAS POR CONSOLA
             WriteLine("ESCUELAS");
             Printer.DrawLine();
             WriteLine(engine.EscuelaA);
             //Printer.Pitar();
-            ImprimirCursosEscuelas(engine.EscuelaA);
+            //ImprimirCursosEscuelas(engine.EscuelaA);
             Dictionary<int, string> diccionario = new Dictionary<int, string>();
             diccionario.Add(10,"maycol");
             diccionario.Add(11,"aldrin");
@@ -31,9 +40,16 @@ namespace CoreEscuela
             }
             
             var diccionariotmp = engine.GetDiccionarioObjetos();
-            engine.ImprimirDiccionario(diccionariotmp);
+            engine.ImprimirDiccionario(diccionariotmp,true);
 
         }
+
+        private static void AccionDelEvento(object sender, EventArgs e)
+        {
+            Printer.WriteTittle("Saliendo");
+            Printer.WriteTittle("Salio");
+        }
+
         private static void ImprimirCursosEscuelas(Escuela escuela)
         {
 

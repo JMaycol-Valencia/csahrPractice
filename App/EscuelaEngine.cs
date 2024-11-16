@@ -32,23 +32,50 @@ namespace CoreEscuela
 
                 foreach (var val in obj.Value)
                 {
-                    if (val is Evaluacion)
+                    switch(obj.Key)
                     {
-                        if (imprEval)
+                        case LlaveDiccionario.Evaluacion:
+                            if(imprEval)
+                                Console.WriteLine(val);
+                        break;
+                        case LlaveDiccionario.Escuela:
+                            if(imprEval)
+                                Console.WriteLine("ESCUELA " + val);
+                        break;
+                        case LlaveDiccionario.Alumno:
+                            if(imprEval)
+                                Console.WriteLine("ALUMNO " + val.Nombre);
+                        break;
+                        case LlaveDiccionario.Curso:
+                            var cur = val as Curso;
+                            if(cur != null)
+                            {
+                                int count = ((Curso)val).Alumnos.Count;
+                                Console.WriteLine("ALUMNO " + val.Nombre + " Cantidad Alumnos: " + count);
+                            }
+                            break;
+                        default:
                             Console.WriteLine(val);
+                        break;
                     }
-                    else if (val is Escuela)
-                    {
-                        Console.WriteLine("ESCUELA " + val);
-                    }
-                    else if (val is Alumno)
-                    {
-                        Console.WriteLine("ALUMNO " + val);
-                    }
-                    else
-                    {
-                        Console.WriteLine(val);
-                    }
+                    
+                    // if (val is Evaluacion)
+                    // {
+                    //     if (imprEval)
+                    //         Console.WriteLine(val);
+                    // }
+                    // else if (val is Escuela)
+                    // {
+                    //     Console.WriteLine("ESCUELA " + val);
+                    // }
+                    // else if (val is Alumno)
+                    // {
+                    //     Console.WriteLine("ALUMNO " + val.Nombre);
+                    // }
+                    // else
+                    // {
+                    //     Console.WriteLine(val);
+                    // }
                 }
             }
         }
@@ -191,6 +218,7 @@ namespace CoreEscuela
         #region METODOS DE CARGA 
         private void CargarEvaluaciones()
         {
+            var rnd = new Random(System.Environment.TickCount);
             // Verificar si EscuelaA o su propiedad Cursos es null
             if (EscuelaA?.Cursos == null)
             {
@@ -221,15 +249,13 @@ namespace CoreEscuela
                             alumno.Evaluaciones = new List<Evaluacion>();
                         }
 
-                        var rnd = new Random(System.Environment.TickCount);
-
                         for (int i = 0; i < 5; i++)
                         {
                             var ev = new Evaluacion
                             {
                                 Asignatura = asignatura,
                                 Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
-                                Nota = (float)(5 * rnd.NextDouble()),
+                                Nota = (float)Math.Round(5 * rnd.NextDouble(), 2),
                                 Alumno = alumno
                             };
                             alumno.Evaluaciones.Add(ev);
