@@ -3,7 +3,7 @@ using CoreEscuela.Util;
 using System.Linq;
 using System.Xml;
 
-namespace CoreEscuela
+namespace CoreEscuela.App
 {
     public sealed class EscuelaEngine
     {
@@ -22,8 +22,6 @@ namespace CoreEscuela
             CargarAsignaturas();
             CargarEvaluaciones();
         }
-        #endregion
-
         public void ImprimirDiccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> dic, bool imprEval = false)
         {
             foreach (var obj in dic)
@@ -79,7 +77,7 @@ namespace CoreEscuela
                 }
             }
         }
-
+        #endregion
         #region OBTENER OBJETOS
         public Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> GetDiccionarioObjetos()
         {

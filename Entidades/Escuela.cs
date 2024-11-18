@@ -23,7 +23,7 @@ namespace CoreEscuela.Entidades
 
         public override string ToString()
         {
-            return $"Nombre\"{Nombre}\", Creacon{AñoCreacion}, {System.Environment.NewLine} Tipo{ TipoEscuela}, Departamento{ Departamento}";
+            return $"Nombre\"{Nombre}\", Creada desde {AñoCreacion}, {System.Environment.NewLine} Tipo{ TipoEscuela}, Departamento{ Departamento}";
         }
 
         public void limpiarLugar()

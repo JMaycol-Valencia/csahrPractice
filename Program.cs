@@ -1,4 +1,5 @@
 ﻿using System;
+using CoreEscuela.App;
 using CoreEscuela.Entidades;
 using CoreEscuela.Util;
 using static System.Console;
@@ -20,28 +21,12 @@ namespace CoreEscuela
 
             var engine =  new EscuelaEngine();
             engine.inicializar();
-            
-            //Forzamos un error o excepcion
-            //throw new Exception();
+            Printer.WriteTittle("BIENVENIDOS A LA ESCUELA");
 
-            //LLAMADAS POR CONSOLA
-            WriteLine("ESCUELAS");
-            Printer.DrawLine();
-            WriteLine(engine.EscuelaA);
-            //Printer.Pitar();
-            //ImprimirCursosEscuelas(engine.EscuelaA);
-            Dictionary<int, string> diccionario = new Dictionary<int, string>();
-            diccionario.Add(10,"maycol");
-            diccionario.Add(11,"aldrin");
-            diccionario.Add(12,"mariela");
-
-            foreach(var keyValPair in diccionario){
-                WriteLine($"Value : {keyValPair.Value} Key: {keyValPair.Key}");
-            }
-            
-            var diccionariotmp = engine.GetDiccionarioObjetos();
-            engine.ImprimirDiccionario(diccionariotmp,true);
-
+            //REPORTEADOR
+            var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
+            reporteador.GetListaEvaluacion();
+           
         }
 
         private static void AccionDelEvento(object sender, EventArgs e)
