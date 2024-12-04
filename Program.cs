@@ -27,6 +27,16 @@ namespace CoreEscuela
             var reporteador = new Reporteador(engine.GetDiccionarioObjetos());
             var evaList = reporteador.GetListaEvaluacion();
             var evaAsig = reporteador.GetListaAsignatura();
+            var evalXAsig = reporteador.GetDicEvalxAsig();
+            var evalPromXAsig = reporteador.GetPromeAlumnPorAsig();
+            
+            foreach(var i in evalPromXAsig)
+            {
+                foreach(var alumno in i.Value)
+                {
+                    var tmp = alumno as Alumno;
+                }
+            }
 
             // foreach(var eva in evaList){
             //     WriteLine(eva.ToString());
