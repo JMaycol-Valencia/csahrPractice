@@ -92,6 +92,9 @@ namespace CoreEscuela.App
             return rta;
         }
 
+
+        //RETO 2 TOP X DE UNA LISTA DE EVALUACIONES
+        //X NUMERO DE ALUMNOS DE LA LISTA DESDE 1 EN ADELANTE
          public Dictionary<string, IEnumerable<AlumnoPromedio>> GetListaTopPromedio(int x)
         {
             var resp = new Dictionary<string, IEnumerable<AlumnoPromedio>>();

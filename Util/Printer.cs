@@ -26,6 +26,12 @@ namespace CoreEscuela.Util
             }
         }
 
+        public static void PresioneEnter()
+        {
+            WriteLine("Presione ENTER ...");
+        }
+
+
         public static void PitarMac(int hz = 2000, int tiempo = 500, int cantidad = 1)
         {
             while (cantidad-- > 0)
